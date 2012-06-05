@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: internal-db.s89266.gridserver.com
--- Generation Time: May 19, 2012 at 03:15 AM
+-- Generation Time: Jun 05, 2012 at 01:19 AM
 -- Server version: 5.1.55-rel12.6
 -- PHP Version: 5.3.10
 
@@ -33,9 +33,61 @@ CREATE TABLE IF NOT EXISTS `ah_communities` (
   `c_public` varchar(1) NOT NULL DEFAULT 'N',
   `c_review` varchar(1) NOT NULL DEFAULT 'N',
   `c_caption` varchar(96) NOT NULL,
+  `c_feedid` varchar(32) NOT NULL,
   PRIMARY KEY (`c_key`),
-  KEY `c_name` (`c_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  KEY `c_name` (`c_name`),
+  KEY `c_feedid` (`c_feedid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_likes`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_likes` (
+  `l_key` int(11) NOT NULL AUTO_INCREMENT,
+  `l_user` int(11) NOT NULL,
+  `l_post` int(11) NOT NULL,
+  `l_text` varchar(32) NOT NULL,
+  `l_parent` int(11) NOT NULL,
+  PRIMARY KEY (`l_key`),
+  KEY `l_user` (`l_user`),
+  KEY `l_post` (`l_post`),
+  KEY `l_parent` (`l_parent`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_notifications` (
+  `n_key` varchar(32) NOT NULL COMMENT 'unique string key',
+  `n_user` int(11) NOT NULL COMMENT 'ref to user account',
+  `n_stamp` int(11) NOT NULL COMMENT 'last changed',
+  `n_type` varchar(1) NOT NULL COMMENT 'notification type',
+  `n_postref` int(11) NOT NULL COMMENT 'reference 1 (type-dependant)',
+  `n_fromuser` int(11) NOT NULL COMMENT 'reference 2 (type-dependant)',
+  `n_ref3` int(11) NOT NULL COMMENT 'reference 3 (type-dependant)',
+  `n_count` int(11) NOT NULL,
+  `n_status` varchar(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`n_key`),
+  KEY `n_user` (`n_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_nvstore`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_nvstore` (
+  `nv_name` varchar(32) NOT NULL,
+  `nv_value` longblob NOT NULL,
+  PRIMARY KEY (`nv_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -47,13 +99,48 @@ CREATE TABLE IF NOT EXISTS `ah_posts` (
   `p_key` int(11) NOT NULL AUTO_INCREMENT,
   `p_deleted` varchar(1) NOT NULL DEFAULT 'N',
   `p_community` int(11) NOT NULL,
+  `p_parent` int(11) NOT NULL,
   `p_data` longblob NOT NULL,
+  `p_meta` longblob NOT NULL,
   `p_owner` int(11) NOT NULL,
   PRIMARY KEY (`p_key`),
   KEY `p_owner` (`p_owner`),
   KEY `p_community` (`p_community`),
-  KEY `p_deleted` (`p_deleted`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=102 ;
+  KEY `p_deleted` (`p_deleted`),
+  KEY `p_parent` (`p_parent`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1671 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_tagnames`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_tagnames` (
+  `t_key` int(11) NOT NULL AUTO_INCREMENT,
+  `t_name` varchar(32) NOT NULL,
+  `t_community` int(11) NOT NULL,
+  `t_lastupdated` int(11) NOT NULL,
+  `t_postcount` int(11) NOT NULL,
+  PRIMARY KEY (`t_key`),
+  KEY `t_community` (`t_community`),
+  KEY `t_name` (`t_name`),
+  KEY `t_lastupdated` (`t_lastupdated`),
+  KEY `t_postcount` (`t_postcount`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_tagrel`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_tagrel` (
+  `tr_tag` int(11) NOT NULL,
+  `tr_post` int(11) NOT NULL,
+  `tr_state` varchar(1) NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`tr_tag`,`tr_post`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -68,8 +155,14 @@ CREATE TABLE IF NOT EXISTS `ah_users` (
   `u_password` varchar(32) NOT NULL,
   `u_community` int(11) NOT NULL,
   `u_role` varchar(1) NOT NULL DEFAULT 'U',
-  PRIMARY KEY (`u_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  `u_pic` varchar(128) NOT NULL,
+  `u_postcount` int(11) NOT NULL,
+  `u_ltcookie` varchar(32) NOT NULL,
+  `u_joindate` int(11) NOT NULL,
+  `u_banned` varchar(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`u_key`),
+  KEY `u_ltcookie` (`u_ltcookie`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=171 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
