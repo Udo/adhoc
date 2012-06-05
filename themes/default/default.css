@@ -1,0 +1,357 @@
+<?
+
+$baseColor = css_color($b, 0);
+$lighterColor = css_color($b, +30);
+$lighterColorHighlight = css_color($b, +70);
+$veryLightColor = css_color($b, +180);
+$darkerColor = css_color($b, -50);
+$linkColor = css_color($b, $colorSchemes[$_REQUEST['scheme']]['linkcolor']);
+$lightGrayBackground = '#f6f6f6';
+$veryLightGrayBackground = '#fbfbfb';
+$darkerGrayBackground = '#e5e5e5';
+$mouseOver = 'color:white;'.css_gradient($lighterColor, $lighterColorHighlight);
+$btnBackground = css_gradient('#e0e0e0', '#ffffff', $lightGrayBackground);
+
+$stdMargin = '6px';
+$stdPadding = '6px';
+$bgAttention = '#ffc';
+$borderColor = '1px solid #cccccc';
+$borderBanner = '1px solid #cb8';
+$textColor = '#333333';
+$lightText = '#999999';
+$boxShadowDef = '0px 0px 5px #bbb';
+$bigBoxShadowDef = '4px 4px 10px #bbb';
+$colorBoxShadowDef = '0px 0px 5px '.$darkerColor;
+$smallTextSize = '10pt';
+$verySmallTextSize = '9pt';
+
+$roundedBorders = '  -moz-border-radius: '.$stdMargin.';
+  -webkit-border-radius: '.$stdMargin.';
+  border-radius: '.$stdMargin.';';
+  
+$boxShadow = '  box-shadow: '.$boxShadowDef.';
+  -moz-box-shadow: '.$boxShadowDef.';
+  -webkit-box-shadow: '.$boxShadowDef.';';
+
+$bigBoxShadow = '  box-shadow: '.$bigBoxShadowDef.';
+  -moz-box-shadow: '.$bigBoxShadowDef.';
+  -webkit-box-shadow: '.$bigBoxShadowDef.';';
+
+$colorBoxShadow = '  box-shadow: '.$colorBoxShadowDef.';
+  -moz-box-shadow: '.$colorBoxShadowDef.';
+  -webkit-box-shadow: '.$colorBoxShadowDef.';';
+  
+
+
+?>/* ------------------------------------- DESIGN ------------------------------------ */
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #444;
+  background: #e8e8e8;
+}
+
+body, td, input, div, p, textarea {
+  font-family: Tahoma, Arial, Helvetica;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+a {
+  text-decoration: none;
+  color: <?= $baseColor ?>;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type=text], input[type=password], textarea {
+  border: <?= $borderColor ?>;
+  width: 100%;
+}
+
+.red {
+  color: red !important;
+}
+
+#content {
+  min-height: 400px;
+  padding: <?= $stdPadding ?>;
+}
+
+#header {
+  <?= css_gradient($baseColor, $lighterColor); ?>
+  color: white;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  min-height: 34px;
+  width: 100%;
+}
+
+.toolbar {
+  padding: <?= $stdPadding ?>;
+  padding-left: 12px;
+  background: #eee;
+  border-top: <?= $borderColor ?>;
+  border-bottom: <?= $borderColor ?>;
+  margin: -<?= $stdMargin ?>;
+  margin-bottom: <?= $stdMargin ?>;
+  margin-top:-4px;
+  color: gray;
+  overflow: hidden;
+}
+
+#content {
+  margin-top: 32px;
+}
+
+.entity {
+  width: 
+}
+
+.unread {
+  background: #ffc;
+}
+
+.overlay {
+  position: fixed;
+  top: 32px;
+  right: 0px;
+  width: 220px;
+  max-height: 200px;
+  background: #fff;
+  border: <?= $borderColor ?>;
+  padding: <?= $stdPadding ?>;
+}
+
+.overlay > div {
+  margin: -<?= $stdPadding ?>;
+  padding: <?= $stdPadding ?>;
+}
+
+#menu {
+  float:right;
+  margin-right: <?= $stdMargin ?>;
+  margin-left: <?= $stdMargin ?>;
+  width: 200px;
+  text-align: right;
+  overflow: hidden;
+}
+
+#menu > a, #header a {
+  color: white;
+}
+
+#menu img {
+  opacity: 0.5;
+}
+
+#menu > a > img {
+  padding: 4px;
+}
+
+#menu > a:hover > img {
+  background: <?= $lighterColorHighlight ?>;
+  opacity: 1;
+}
+
+#site-title > a {
+  padding: <?= $stdPadding ?>;
+  padding-left: 12px;
+  display: block;
+}
+
+.smallcol {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+  text-align: center;
+  color: gray !important;
+  font-size: 80% !important;
+}
+
+.form-td-caption {
+  width: 200px;
+  text-align: right;
+}
+
+.element-caption {
+  margin-top: 3px;
+  margin-right: <?= $stdMargin ?>;
+}
+
+.description {
+  color: green;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+textarea {
+  height: 50px;
+}
+
+.commenteditor {
+  height: 50px;
+  margin-top: 6px;
+  width: 95%;
+}
+
+#loader {
+  padding: 6px; 
+  padding-left: 16px;
+}
+
+input[type=button], input[type=submit], button, a.btn {
+  padding: <?= $stdPadding ?>;
+  color: white;
+  min-width: 80px;
+  cursor: pointer;
+  border: <?= $borderColor ?>;
+  <?= css_gradient($baseColor, $lighterColor); ?>
+  <?= $roundedBorders ?>;
+}
+
+input[type=button]:focus, input[type=submit]:focus, button:focus, a.btn:focus,
+input[type=button]:hover, input[type=submit]:hover, button:hover, a.btn:hover {
+  <?= css_gradient($baseColor, $lighterColorHighlight); ?>
+}
+
+.banner {
+  border: <?= $borderBanner ?>;
+  background: <?= $bgAttention ?>;
+  padding: <?= $stdPadding ?>;
+  margin-top: <?= $stdMargin ?>;
+  margin-bottom: <?= $stdMargin ?>;
+}
+
+.narrow #header-inner, .narrow #content-inner, .narrow #footer-inner {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.postitem, .commentlist, .entity {
+  padding: <?= $stdPadding ?>;
+  border: <?= $borderColor ?>;
+  background: #ffffff;
+}
+
+.postitem, .entity {
+  width: <?= $colWidth ?>px;
+  min-height: 30px;
+  margin-bottom: 16px;
+  padding-top: 5px;
+}
+
+.ultile {
+  width: 100px;
+  float: left;
+  margin-left: 12px;
+  margin-bottom: <?= $stdMargin ?>;
+  border: <?= $borderColor ?>;
+  
+}
+
+.commentshim {
+  padding: 2px;
+  border: 1px solid #ddd;
+  margin-top: 4px;
+  background: #f8f8f8;
+  color: #bbb;
+}
+
+.comment {
+  margin-top: 4px;
+}
+.comment .image, .postitem .image {
+  float: left;
+  height: 32px;
+  width: 32px;
+}
+.comtext, .postext {
+  padding-left: 40px;
+  min-height: 32px;
+}
+
+.readmore, .hseparator {
+  margin-left: -<?= $stdMargin ?>;
+  margin-right: -<?= $stdMargin ?>;
+}
+
+.hseparator {
+  margin-top: 4px;
+  border-top: 1px solid #ccc;
+}
+
+.overlay > div > div, .toolbar, .smallmsg, .commenteditor, .comment .text, .readmore, .postactions, .commentshim {
+  font-size: 85%;
+}
+
+.readmore {
+  display: block;
+  padding: 2px;
+  padding-left: <?= $stdPadding ?>;
+  border-top: <?= $borderColor ?>;
+  margin-top: 4px;
+  background: #e8e8e8;
+  <?= css_gradient('#ffffff', '#e8e8e8') ?>
+}
+
+.postcomments {
+
+}
+
+.postdetail {
+  margin-bottom: <?= $stdMargin ?>;
+}
+
+.smallmsg {
+  color: gray;
+}
+
+.indent {
+  margin-left: 40px;
+}
+
+.commentlist {
+  max-width: 500px;
+}
+
+.attachment {
+  width: 100%;
+}
+
+.postactions, .postactions a {
+  color: gray;
+}
+
+.postitem > div:hover a {
+  color: <?= $baseColor ?>;
+}
+
+.postitem .attachment {
+  margin-bottom: 5px;
+  margin-top: 4px;
+}
+
+.errormsg {
+  color: red;
+  font-weight: bold;
+  margin-top: -6px;
+  margin-bottom: 6px;
+}
+
+#stream {
+  margin-left: <?= $stdMargin ?>;
+}
+
+
+

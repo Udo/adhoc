@@ -1,0 +1,41 @@
+The lib/ dir is for library files, mainly classes and utility functions.
+
+File things:
+--------------------------------------------------------------------------------------------
+all.js.php      This gathers all the JavaScript files of the project together and serves 
+                them in one go. The file contains a mechanism for caching as well, so the
+                server doesn't have to retrieve those files too often (this is disabled in
+                development).
+                
+class.hubbub*   These are class files and are automatically loaded by the class loader in
+                lib/hubbub2.php on demand. I really hate class loaders, but there you go.
+                Once the code is stable it'd probably make sense to consolidate or compile
+                those files into a single one, so APC can cache it in one go.
+                
+config.php      The basis for all things config. It does a lot of things, some of them even
+                necessary. It tries to trick PHP into a somewhat sane runtime configuration.
+                And it includes the conf/default.php config file (which is actually a json
+                object). Don't edit this file if you wanna mess with your configuration, do
+                that in conf/default.php.
+                
+cq-forms.php    An ancient form generator from three bazillion projects ago. And that crap
+                lib/predef/ belongs to it as well.
+             
+database.php    A very lightweight MySQL DB interface, built around the idea that datasets
+                can be associative arrays. It also contains provisions for lightweight
+                caching.
+                
+genlib.php      A ragtag collection of random useful functions.
+
+hubbub.js       These are the JS functions specific to the Hubbub UI (mostly ajax stuff).
+
+hubbub2.php     Hubbub-specific util functions and basic class declarations.
+
+receiver.php    This gets called when Hubbub receives data from another node in the 
+                network.
+                
+special-io.php  I/O functions that didn't make it into genlib.php (will probably be
+                replaced or phased out).
+                
+
+                

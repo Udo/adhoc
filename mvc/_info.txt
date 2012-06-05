@@ -1,0 +1,49 @@
+MVC Directory
+--------------------------------------------------------------------------------------------
+Most of the Hubbub UI is defined in the MVC directory. It's a VERY lax mvc-like structure,
+so don't scream that it's not real MVC. Here's how it works:
+
+The UI is compartmentalized into controllers, each controller lives in a subdirectory under
+mvc/ that has the same name as the controller. A typical Hubbub URL looks like this:
+
+  http://example.com/friends-add
+
+which causes the following to happen: Hubbub parses the URL and interprets "friends" as 
+the controller name. It promptly inits the object FriendsController defined in the file
+mvc/friends/friends.controller.php. Hubbub then calls the method that corresponds to the
+action "add". If no action is defined, the default action "index" is called. Inside the
+action method, the controller decides what to do now (usually initializing some data and
+preparing them for display). 
+
+By default, every action has a view associated with it that has the same name. In this 
+case it would be mvc/friends/friends.add.php - this view is simply the PHP template that
+puts HTML on the screen. Inside the view, you can address the controller object with the
+keyword "$this".
+
+Some controllers have models. Note that these are not automatically generated ORMs or 
+something like that, they are simply helper objects that munch some data. By default, 
+models have the same name as their controller, for example in this case it would be
+the class FriendsModel defined in mvc/friends/friends.model.php.
+
+To init a model, simply use "$this->invokeModel();" in the controller class. You might
+want to do this in the __init() method if you need the model to be loaded for most actions. 
+You can also load a different model by giving its name as a parameter for ->invokeModel().
+
+By convention, any action name starting with "ajax_" is interpreted as an AJAX action,
+meaning that no view template will be applied and only the controller's action method
+is executed (on which now the responsibility of doing data output falls). If you want to
+use a view template in this case, override the default behavior in the action method by
+setting the following member variable:
+  
+  $this->skipView = false;
+  
+and the action's view will be executed normally.
+
+Localization
+--------------------------------------------------------------------------------------------
+The l10n() method provides a basic mechanism for localization. Whenever a controller is
+loaded, the corresponding l10n textfile is also loaded from the same directory. The l10n
+files have to fit this naming scheme:
+
+  mvc/<controller>/l10n.<lang>.cfg
+  

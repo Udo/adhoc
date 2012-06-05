@@ -1,0 +1,76 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: internal-db.s89266.gridserver.com
+-- Generation Time: May 19, 2012 at 03:15 AM
+-- Server version: 5.1.55-rel12.6
+-- PHP Version: 5.3.10
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `db89266_adhoc`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_communities`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_communities` (
+  `c_key` int(11) NOT NULL AUTO_INCREMENT,
+  `c_name` varchar(32) NOT NULL,
+  `c_pwd` varchar(32) NOT NULL,
+  `c_public` varchar(1) NOT NULL DEFAULT 'N',
+  `c_review` varchar(1) NOT NULL DEFAULT 'N',
+  `c_caption` varchar(96) NOT NULL,
+  PRIMARY KEY (`c_key`),
+  KEY `c_name` (`c_name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_posts`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_posts` (
+  `p_key` int(11) NOT NULL AUTO_INCREMENT,
+  `p_deleted` varchar(1) NOT NULL DEFAULT 'N',
+  `p_community` int(11) NOT NULL,
+  `p_data` longblob NOT NULL,
+  `p_owner` int(11) NOT NULL,
+  PRIMARY KEY (`p_key`),
+  KEY `p_owner` (`p_owner`),
+  KEY `p_community` (`p_community`),
+  KEY `p_deleted` (`p_deleted`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=102 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ah_users`
+--
+
+CREATE TABLE IF NOT EXISTS `ah_users` (
+  `u_key` int(11) NOT NULL AUTO_INCREMENT,
+  `u_username` varchar(32) NOT NULL,
+  `u_id` varchar(64) NOT NULL,
+  `u_password` varchar(32) NOT NULL,
+  `u_community` int(11) NOT NULL,
+  `u_role` varchar(1) NOT NULL DEFAULT 'U',
+  PRIMARY KEY (`u_key`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
