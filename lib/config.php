@@ -43,8 +43,10 @@
 
 	$cfgCategory = 'config';
 		
-  if(file_exists('conf/default.php'))
-    require('conf/default.php');
+  require('conf/default.php');
+  
+  if(!isset($GLOBALS[$cfgCategory]['db']))
+    die('Error: configuration file could not be loaded.');
   
   $GLOBALS['menu'] = array();
   
@@ -52,7 +54,7 @@
   $svc = &$GLOBALS['config']['service'];
   foreach(array(
     'dateformat' => 'H:i d.m.Y',
-    'name' => 'AdHocistan',
+    'name' => 'AdHoc',
 		'defaultcontroller' => 'home',
 		'defaultaction' => 'index',
 		'version' => 2012.100,
